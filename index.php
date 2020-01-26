@@ -21,7 +21,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php include 'includes/link.php';?>
 		<link rel="stylesheet" href="css/login.css">
-		<link rel="icon" href="includes/icons/<?= $page_slug ?>s.png">
+		<link rel="icon" href="image/logo.png">
 	</head>
 	<body dir="rtl">
 		<?php

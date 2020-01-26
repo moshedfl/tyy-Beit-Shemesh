@@ -13,3 +13,4 @@
 <!--js for ligthbox-->
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.js"></script>
 
+<script src="plugins/printthis/printThis.js"></script>

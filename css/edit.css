@@ -1,0 +1,26 @@
+
+.toolbar button{
+    margin: 5px 3px 5px 0;
+}
+
+/*edroute.css*/
+.route-header{
+    cursor: default;
+}
+
+#stops-list{
+    display: block;
+}
+
+#stop-name-col{
+    text-align: right;
+}
+
+.stop-num{
+    border-bottom: 2px solid #f6f6f6;
+}
+
+.stutands-list{
+    display: none;
+}
+

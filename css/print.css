@@ -1,0 +1,39 @@
+
+@page {
+     size: A3;
+     margin: 2cm;
+}
+
+/* section > *:not(.print-route){display: none;} */
+
+body{
+     -webkit-print-color-adjust: exact;
+}
+
+main{
+     display: block;
+}
+
+.route{
+     break-after: page;
+direction: rtl;}
+
+.route-header{
+     background-color: rgb(209, 214, 216);
+
+}
+
+.fas{
+     display: none;
+}
+
+.stops-list{
+     display: block !important ;
+}
+
+
+
+
+
+
+

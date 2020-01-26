@@ -1,5 +1,4 @@
 <?php
-  // header('X-XSS-Protection:0');
   
   //Checks connected user
   if($_COOKIE[old_user]){

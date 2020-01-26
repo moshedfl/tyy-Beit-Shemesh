@@ -1,19 +1,25 @@
+body{
+   min-height: 101vh;
+}
+
+section{
+    margin: auto;
+    margin-top: 2vmin;
+}
 
 .route {
     background-color: #ffffff;
 }
 
-
-
 .route .h6, .route .t1{
     flex: 1;
-
 }
 
 .route-header{
     display: flex;
     padding: 4px 0;
     border: 1px solid #d1d3d7;
+    cursor: pointer;
 }
 
 .route:nth-of-type(odd){
@@ -22,28 +28,65 @@
 
 .route .active-header{
     background-color: rgb(209, 214, 216);
-    margin-top: 5px;
-
-
+    border-top: 1.3px solid red;
 }
 
-.route .first-col{
+.active-header .h6, .active-header .t1{
+    color: #000;
+}
+
+.active-header .second-col{
+    border-right: 1.3px solid rgb(236, 236, 236);
+}
+
+.active-header .icons{
+    opacity: 1;
+}
+
+.active-header .fa-angle-up{
+    display: flex;
+}
+
+.first-col{
     padding: 3px 10px 3px 3px;
-    flex-basis: 40%;
+    flex-basis: 35%;
 }
 
-.route .second-col{
+.second-col{
     border-right: 1px solid #ddd;
     padding: 3px 10px 3px 3px;
-    flex-basis: 60%;
+    flex-basis: 55%;
+}
+
+.third-col{
+    flex-basis: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;    
 }
 
 .line{
     display: flex;
-
 }
 
-.route .stops-list{
+.icons{
+    position: absolute;
+    top: 5%;
+    opacity: 0;
+    display: flex;
+}
+
+.fa-angle-up, .active-header .fa-angle-down{
+    display: none;
+}
+
+.fa-edit, .fa-print{
+    font-size: 100%;
+    color: #383838;
+}
+
+.stops-list{
     display: none;
     background-color: #ffffff;
     box-shadow: inset 0 5px 5px 0.5px rgba(0,0,0,.05);
@@ -52,6 +95,7 @@
 
 .stop-row{
     display: flex;
+    align-items: center;
     padding: 4px 0;
     border: 1px solid #d1d3d7;
 }
@@ -59,6 +103,7 @@
 .stop-row > .h6{
     padding: 0 7px 0 0;
     flex-basis: 8%;
+    max-width: 30px;
 }
 
 .stop-row > .t1, .stutands-list{
@@ -71,8 +116,9 @@
     background-color: rgba(233, 238, 240, 1);
 }
 
-.stop-row:nth-last-child(1){
-    border-bottom: 3px double #ddd;
+.stop-row:nth-last-child(1):not(.table-header-row){
+    border-bottom: 1px solid red;
+
 }
 
 .stutands-list{
@@ -81,8 +127,9 @@
 }
 
 .stutand-row{
-    font-size: 3.5vw;
+    font-size: 0;
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
 }
 
 .stutand-row:nth-last-child(1){
@@ -97,22 +144,130 @@
 .stutand-info{
     display: none;
     box-shadow: inset 3px 3px 5px 2px rgba(0, 0, 0, 0.08);
-    font-size: 3.5vw;
-
 }
 
 .stutand-info .line{
     border-bottom: 1px solid #ddd;
 }
 
-.stutand-info .h6, .stutand-info .t1{
-    font-size: 3.5vw;
-}
-
-.stutand-info .h6{
+.stutand-info .h8{
     flex-basis: 40%;
 }
 
-.stutand-info .t1{
+.stutand-info .t3{
     flex-basis: 60%;
+}
+
+
+/*css for desktop*/
+@media print, screen and (min-width: 768px) {
+    
+    section{
+        flex:1;
+        max-width: 920px;
+        padding: 0 0.3%;
+    }
+
+    .route-header:hover .icons{
+        opacity: 1;
+        transition: all 1s ease-in;
+    }
+
+    .route-header:hover{
+        background-color: rgb(209, 214, 216);
+    }
+
+    .first-col{
+        flex-basis: 25%;
+        padding: 3px 20px 3px 3px;
+    }
+
+    .second-col{
+        flex-basis: 35%;
+    }
+
+    .third-col{
+        flex-basis: 40%;
+    }
+
+    .icons{
+        position: initial;
+        flex-basis: 75%;
+        text-align: left;
+        padding: 0 8%;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .fa-edit, .fa-print{
+        font-size: 120%;
+        padding: 8px;
+    }
+
+    .table-header-row{
+        background-color: #7d7e82;
+    }
+
+    .table-header-col{
+        color: #fff;
+        text-align: center;
+        font-weight: 600;
+        font-size:13.5px; 
+    }
+
+    .stop-row > .t1{
+       flex-basis: 26%;
+    }
+    
+    .stutands-list{
+        flex-basis: 70%;
+    }
+
+    .stutand-row{
+        display: flex;
+        padding: 2px 0;
+        cursor: initial;
+    }
+
+    .stutand-row > .h7{
+        flex-basis: 13%;
+    }
+
+    .stutand-row > .t2{
+        flex-basis: 20%;
+        border-right: 1px solid #ddd;
+        padding: 0 8px 0 4px;
+    }
+
+    .stutand-info{
+        box-shadow: none;
+        display: flex;
+        flex-basis: 67%;
+    }
+
+    .stutand-info .line{
+        border-bottom: none;
+        flex-basis: 24%;
+    }
+
+    .stutand-info .t3{
+        border-right: 1px solid #ddd;
+        padding: 0 4px;
+        flex-basis: 100%;
+    }
+
+    .stutand-info .line.address{
+        flex-basis: 28%;
+    }
+     
+}
+
+
+/*css for xl*/
+@media print, screen and (min-width: 1550px) {
+
+    main{
+        display: flex;
+        justify-content: center;
+    }
 }

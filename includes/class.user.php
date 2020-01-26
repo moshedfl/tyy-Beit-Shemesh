@@ -8,6 +8,7 @@
       public $UserEmail;
       public $Password;
       public $UserRole;
+      public $Permissions;
       public $UserStatus;
 
       function __construct($username){
@@ -24,6 +25,7 @@
         $this->UserEmail = $result_user["user_email"];
         $this->Password = $result_user["user_password"];
         $this->UserRole = $result_user["user_role"];
+        $this->Permissions = $result_user["user_permissions"];
         $this->UserStatus = $result_user["user_status"];
       }
   }
@@ -52,12 +54,13 @@
       }
 
       public function SetUserSession(){
-        $_SESSION[User][User_id]= $this->UserId;
-        $_SESSION[User][User_name]= $this->UserName;
-        $_SESSION[User][user_tel]= $this->UserTel;
-        $_SESSION[User][User_email]= $this->UserEmail;
-        $_SESSION[User][user_role]= $this->UserRole;
-        $_SESSION[User][user_status]= $this->UserStatus;
+        $_SESSION[tyy_User][User_id]= $this->UserId;
+        $_SESSION[tyy_User][User_name]= $this->UserName;
+        $_SESSION[tyy_User][user_tel]= $this->UserTel;
+        $_SESSION[tyy_User][User_email]= $this->UserEmail;
+        $_SESSION[tyy_User][user_role]= $this->UserRole;
+        $_SESSION[tyy_User][user_permissions]= $this->Permissions;
+        $_SESSION[tyy_User][user_status]= $this->UserStatus;
       
         header("Refresh:0");
       }

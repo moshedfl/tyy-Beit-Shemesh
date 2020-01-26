@@ -1,10 +1,12 @@
-let myWereper = document.getElementById("myWereper");
-let childWereper = document.getElementById("childWereper");
 
-let formWereper = document.getElementById("formWereper");
-let myForm = document.getElementById("myForm");
+//Allows typing only numbers
 
+function numberOnly(event) {
 
-if(childWereper){
-    myWereper.removeChild(childWereper);
+    var x = event.key;
+
+    if(isNaN(parseInt(x))  ){
+        event.preventDefault();
+
+    }
 }

@@ -11,6 +11,7 @@
 
   $new_user = true ;
   $err ="";
+  $permissions = 0;
 
   // Checks form data
   if(isset($_POST[username]) && $username!="" && $_POST[email]!="" && $password!="" && $confirm_password!=""){
@@ -41,6 +42,18 @@
       $err_email = "";
     }
 
+    //Sets user permissions
+    switch ($role) {
+      case "מנהל מערכת":
+          $permissions = 10;
+          break;
+      case "מזכיר" || "מנהל":
+          $permissions = 9;
+          break;
+      default:
+          $permissions = 8;
+    }
+
     // Checks the length of the password
     if(strlen($password)<7){
       $new_user = false ;
@@ -64,8 +77,8 @@
     //Insert form data into database
     if($new_user==true){
 
-      $sql_new_user = $conn->prepare("INSERT INTO users (username, user_tel, user_email, user_password, user_role, user_status ) VALUES (?, ?, ?, ?, ?, ? )");
-      $sql_new_user->bind_param("sisssi", $username, $tel, $email, $hashed_password, $role, $user_status );
+      $sql_new_user = $conn->prepare("INSERT INTO users (username, user_tel, user_email, user_password, user_role, user_permissions, user_status ) VALUES (?, ?, ?, ?, ?, ?,? )");
+      $sql_new_user->bind_param("sisssii", $username, $tel, $email, $hashed_password, $role, $permissions, $user_status );
       $sql_new_user->execute();
       
       if ($sql_new_user) {
@@ -117,7 +130,7 @@
       <input type="submit" class="fadeIn fourth" value="הירשם" style="margin-bottom:0">
       <div class="form-check-inline" style="margin:15px 15px 8px; float:right">
         <label class="form-check-label" for="user_status">פעיל
-          <input type="checkbox" class="form-check-input" id="user_status" name="user_status">
+          <input type="checkbox" class="form-check-input" id="user_status" name="user_status" checked>
         </label>
       </div>
     </form>

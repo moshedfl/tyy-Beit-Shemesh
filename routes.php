@@ -1,18 +1,11 @@
-<script>
-	$(document).ready(function(){
-        
-        $(".route-header").click(function(){
-            $(this).siblings(".stops-list").slideToggle("fast");
-        });
-        
-        $(".stutand-row").click(function(){
-            $(this).find(".stutand-info").slideToggle("fast");
-		});
-	});
-</script>
+
 
 <main>
-    <section>
+    <section dir="rtl" id="forth">
+        <h4 class="h4">הלוך</h4>
+    </section>
+    <section id="back">
+        <h4 dir="rtl" class="h4">חזור</h4>
 
 <?php
     $stmt = $conn->prepare("SELECT Routes.*,users.username, users.user_tel, COUNT(DISTINCT Stutands_routes.stop_id) AS stops, COUNT(Stutands_routes.route_id) AS Stutands
@@ -35,16 +28,19 @@
         $sum_stops =  $row["stops"];
         $sum_Stutands =  $row["Stutands"];
 
-
-       // echo '<pre>';
-       // print_r($row);
-       // echo '</pre>';
+        if($route_direction == "הלוך"){
+            $data_direction = "forth";
+        }else{
+            $data_direction = "back";
+        }
+        
         
         ?>
-            <div class="route">
-                <div class="route-header">
+            <div class="route" data-route-id="<?= $route_id ?>" data-direction="<?= $data_direction ?>">
+                <div class="route-header display-route">
                     <div class="first-col">
                         <div class="line">
+                            <span class="h6"><?= $route_id ?>#</span>
                             <span class="h6"><?= $route_direction ?></span>
                         </div>
                         <div class="line">
@@ -78,12 +74,58 @@
                             <span class="t1"><?= $sum_Stutands ?></span>
                         </div>
                     </div>
+                    <div class="third-col">
+                        <div class="icons d-print-none" >
+                        <?php
+                            if($_SESSION[tyy_User][user_permissions] > 8){
+                        ?>
+                            <a class="edit-route" href="edit.php ?routeid=<?=$route_id?>">
+                                <i class="fas fa-edit" title="ערוך"></i>
+                            </a>
+                        <?php
+                            }
+                        ?>
+                            <i class="fas fa-print d-none d-md-block" title="הדפס"></i>
+                        </div>
+                        <div class="angles">
+                            <i class="fas fa-angle-down"></i>
+                            <i class="fas fa-angle-up"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="stops-list">
-               <?php
-        
-                    stops_list($route_id,$route_direction);
 
+                <div class="stops-list">
+                    
+                    <!-- header for table in desktop -->
+                    <div class="table-header d-none d-md-block">
+                        <div class="stop-row table-header-row">
+                            <span class="h6 table-header-col">#</span> 
+                            <span class="t1 table-header-col">שם תחנה</span>
+                            <div class="stutands-list">
+                                <div class="stutand-row">
+                                    <span class="h7 table-header-col">משפחה</span> 
+                                    <span class="t2 table-header-col">שם פרטי</span>
+                                    <div class="stutand-info">
+                                        <div class="line address">
+                                            <span class="t3  table-header-col">כתובת</span>
+                                        </div>
+                                        <div class="line">
+                                            <span class="t3 table-header-col">טלפון</span>
+                                        </div>
+                                        <div class="line">
+                                            <span class="t3 table-header-col">נייד</span>
+                                        </div> 
+                                        <div class="line">
+                                            <span class="t3 table-header-col">נייד נוסף</span>
+                                        </div>
+                                    </div>    
+                                </div>   
+                            </div>
+                        </div>  
+                    </div>
+
+               <?php
+                    stops_list($route_id);
                 ?>
                 </div>
             </div>
@@ -92,19 +134,14 @@
         <?php
     }
 
-        function stops_list($route_id,$route_direction){
+        function stops_list($route_id){
             
             global $conn;
-            if($route_direction == "הלוך"){
-                $order = "ASC";
-            }else{
-                $order = "DESC";
-            }
-               
-            $stmt = $conn->prepare("SELECT DISTINCT stops.stop_id, stop_name, stop_number FROM stops 
+                          
+            $stmt = $conn->prepare("SELECT DISTINCT stops.stop_id, stop_name, stop_number , Stutands_routes.stop_num FROM stops 
             INNER JOIN  Stutands_routes 
             ON stops.stop_id = Stutands_routes.stop_id WHERE route_id = ?
-            ORDER BY stop_number  $order");
+            ORDER BY stop_num  ");
             $stmt-> bind_param("i",$route_id);
             $stmt-> execute();
             $result = $stmt-> get_result();
@@ -112,19 +149,24 @@
             while($row = $result ->fetch_assoc()){
                 $stop_id =  $row["stop_id"];
                 $stop_name =  $row["stop_name"];
-                $stop_number =  $row["stop_number"];
+                $stop_num =  $row["stop_num"];
 
                 ?>
                  <div class="stop-row">
-                    <span class="h6"><?= $stop_number ?></span> 
+                    <span class="h6"><?= $stop_num ?></span> 
                     <span class="t1"><?= $stop_name ?></span>
+                <?php
+                    if($_SESSION[tyy_User][user_role] != 'נהג'){
+                ?>
                     <div class="stutands-list">
-                        <?php
-                            stutands_list($route_id,$stop_id);
-                        ?>
-
+                    <?php
+                        stutands_list($route_id,$stop_id);
+                    ?>
                     </div>
-                 </div>   
+                <?php
+                    }
+                ?>
+                </div>   
 
                 <?php
             }
@@ -153,24 +195,24 @@
 
                 ?>
                  <div class="stutand-row">
-                    <span class="h6"><?= $last_name ?></span> 
-                    <span class="t1"><?= $first_name ?></span>
+                    <span class="h7"><?= $last_name ?> </span> 
+                    <span class="t2"><?= $first_name ?></span>
                     <div class="stutand-info">
-                        <div class="line">
-                            <span class="h6">כתובת:</span>  
-                            <span class="t1"><?= $address ?></span>
+                        <div class="line address">
+                            <span class="h8 d-md-none d-print-none">כתובת:</span>  
+                            <span class="t3 "><?= $address ?></span>
                         </div>
                         <div class="line">
-                            <span class="h6">טל':</span> 
-                            <span class="t1"><?= $tel ?></span>
+                            <span class="h8 d-md-none d-print-none">טל':</span> 
+                            <span class="t3"><?= $tel ?></span>
                         </div>
                         <div class="line">
-                            <span class="h6"><?= $mobile_1 ? "נייד:" : "" ?></span> 
-                            <span class="t1"><?= $mobile_1 ? $mobile_1 : "" ?></span>
+                            <span class="h8 d-md-none d-print-none"><?= $mobile_1 ? "נייד:" : "" ?></span> 
+                            <span class="t3"><?= $mobile_1 ? $mobile_1 : "" ?></span>
                         </div> 
                         <div class="line">
-                            <span class="h6"><?= $mobile_2 ? "נייד נוסף:" : "" ?></span> 
-                            <span class="t1"><?= $mobile_2 ? $mobile_2 : "" ?></span>
+                            <span class="h8 d-md-none d-print-none"><?= $mobile_2 ? "נייד נוסף:" : "" ?></span> 
+                            <span class="t3"><?= $mobile_2 ? $mobile_2 : "" ?></span>
                         </div>
                     </div>    
                  </div>   

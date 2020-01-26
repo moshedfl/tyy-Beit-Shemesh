@@ -1,18 +1,153 @@
+/* body */
+
 body{
     text-align: right;
 }
 
-.h6{
+
+/*TYPOGRAPHY*/
+
+
+
+
+
+.h4, .h6, .h7, .h8{
     color: #595959;
     font-weight: 600;
-    font-size: 3.7vw;
     margin: 0;
     line-height: 1.45;
 }
 
-.t1{
-    color: #111;
-    font-size: 3.6vw;
-    line-height: 1.45;
-
+.h4{
+    font-size: 5vw;
 }
+
+.h6{
+    font-size: 3.7vw;
+}
+
+.h7{
+    font-size: 3.6vw;
+}
+
+.h8{
+    font-size: 3.5vw;
+}
+
+.t1, .t2, .t3{
+    color: #111;
+    line-height: 1.45;
+}
+
+.t1{
+    font-size: 3.6vw;
+}
+
+.t2{
+    font-size: 3.55vw;
+}
+
+.t3{
+    font-size: 3.5vw;
+}
+
+.button{
+    padding: 1px 5px;
+    font-size: 4.3vw;
+}
+
+/* ANIMATIONS */
+
+.transition-05{
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* header */
+
+#top{
+    color: #fff;
+    background-color: black;
+    padding: 6px;
+    display: flex;
+}
+
+#logout{
+    flex-basis: 25%;
+}
+
+#user-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 50%;
+}
+
+#user-name .h4{
+    color: #fff;
+}
+
+/* #printZon{
+    width: 0;
+    height: 0;
+    margin: 0;
+} */
+
+/*css for Devices 400px and above*/
+
+@media print, screen and (min-width: 400px) {
+
+    /*TYPOGRAPHY*/
+
+    .h4{
+        font-size: 18px;
+    }
+
+    .h6{
+        font-size: 14.8px;
+    }
+    
+    .h7{
+        font-size: 13.5px;
+    }
+    
+    .h8{
+        font-size: 12.5px;
+    }
+    
+    .t1{
+        font-size: 14.4px;
+    }
+    
+    .t2{
+        font-size: 13px;
+    }
+    
+    .t3{
+        font-size: 12px;
+    }
+
+    .button{
+        padding: 1px 5px;
+        font-size: 17.2px;
+    }
+
+
+    /* header */
+
+    
+    
+    #logout{
+        flex-basis: 85px;
+    }
+
+    #user-name{
+        align-items: center;
+        justify-content: right;
+        flex-basis: 180px;
+    }
+}
+
