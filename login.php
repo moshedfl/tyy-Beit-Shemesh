@@ -1,30 +1,36 @@
+<!--login screen-->
+
 <?php
+
+$err = "";
   
-  //Checks connected user
-  if($_COOKIE[old_user]){
-    $user = new UserLogin($_COOKIE[old_user]);
-    $user->ConnectedUser();
+  // Checks connected user
+if (isset($_COOKIE['old_user'])) {
+    $user = new UserLogin($_COOKIE['old_user']);
+    $user->ProveConnectedUser();
+    login($user);
   
-  //Checks not connected user
-  }elseif($_POST[username]){
-    $user = new UserLogin(trim($_POST[username]));
-    $user->NotConnectedUser($_POST[password],$_POST[Stay_connected]);
-  }
-    
-  if($user->UserOk){
-    $user->SetUserSession();
-    header("Location:home.php");
-  }
+    // Checks not connected user
+} elseif (isset($_POST['username'])) {
+    $user = new UserLogin(trim($_POST['username']));
+    $user->ProveNotConnectedUser($_POST['password'], $_POST['Stay_connected']);
+    login($user);
+    $err = $user->err;
+}
+
+function login($user)
+{
+    if ($user->UserOk) { // if user identity proved
+        $user->SetUserSession(); // create session with all user data
+        header("Location:home.php"); //login to home page
+    }
+}
+
   
-echo '<pre>';
-//print_r($user) ;
-//print_r($_SESSION[User]) ;
-echo '</pre>';
 ?>
 
 <div class="wrapper fadeInDown">
   <div id="formContent">
-    <!-- Tabs Titles -->
 
     <!-- Icon -->
     <div class="fadeIn first">
@@ -33,7 +39,7 @@ echo '</pre>';
     </div>
 
     <!-- Login Form -->
-    <?= $user->err?>
+    <?= $err?>
     <form method="post">
       <input type="text" id="login" class="fadeIn second" name="username" placeholder="שם משתמש" required>
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="סיסמא" required>
@@ -47,7 +53,7 @@ echo '</pre>';
 
     <!-- sign up -->
     <div id="formFooter" style="clear:right">
-      <a class="underlineHover" href="?page_slug=signup">הירשם עכשיו</a>
+      <a class="underlineHover" href="?page_slug=includes/message">הירשם עכשיו</a>
     </div>
 
   </div>

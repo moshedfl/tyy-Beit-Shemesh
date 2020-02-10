@@ -7,11 +7,16 @@ body {
   height: 100vh;
 }
 
-.form-check-label, a {
+.form-check-label, a, .message-body {
   color: #92badd;
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
+}
+
+h1{
+  color:#60a0ff;
+  font-size: 4.5vh;
 }
 
 h2 {
@@ -244,10 +249,6 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
   width: 100%;
 }
 
-h1{
-    color:#60a0ff;
-    font-size: 4.5vh;
-}
 
 /* OTHERS */
 

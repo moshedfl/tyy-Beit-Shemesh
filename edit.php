@@ -1,7 +1,14 @@
+<!--edit screen-->
+
 <?php
-include 'includes/db_connection.php';
-include 'includes/functions.php';
-include 'includes/class.user.php';
+
+require 'includes/db_connection.php';
+require 'includes/functions.php';
+require 'includes/class.user.php';
+
+//Checks whether the user has edit permission
+if($_SESSION['tyy_User']['user_permissions'] < 9) user_logout();
+
 ?>
 
 
@@ -12,7 +19,9 @@ include 'includes/class.user.php';
 		<!-- Required meta tags -->
         <meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<?php include 'includes/link.php';?>
+		<!--cdn links for external libraries-->
+		<?php require 'includes/link.php';?>
+		<!-- Required style sheets -->
 		<link rel="stylesheet" href="css/login.css">
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/routes.css">
@@ -22,15 +31,11 @@ include 'includes/class.user.php';
 	</head>
 	<body dir="rtl">
 		<?php
-			//include 'update_data/up_stutand_trans.php';
-			include 'includes/header.php';
-			include 'includes/edroute.php';
-	
-
-		?>
-
+			 //include 'update_data/up_student_trans.php';
+			 require 'includes/header.php';
+			 require 'includes/edroute.php';
+		  ?>
 
 		<script src="js/main.js"></script>
-
 	</body>
 </html>

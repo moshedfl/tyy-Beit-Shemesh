@@ -1,14 +1,15 @@
-<?php
-	
-	include 'includes/db_connection.php';
-	include 'includes/functions.php';
-	include 'includes/class.user.php';
+<!--default screen-->
 
-	if(isset($_GET[page_slug])){
-		$page_slug = $_GET['page_slug'];
-	}else{
-		$page_slug = 'login';
-	}
+<?php
+	require 'includes/functions.php';
+	require 'includes/db_connection.php';
+	require 'includes/class.user.php';
+
+if (isset($_GET['page_slug'])) {
+    $page_slug = $_GET['page_slug'];
+} else {
+    $page_slug = 'login';
+}
 			
 ?>
 
@@ -19,13 +20,16 @@
 		<!-- Required meta tags -->
         <meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<?php include 'includes/link.php';?>
+		<!--cdn links for external libraries-->
+		<?php require 'includes/link.php';?>
+		<!-- Required style sheets -->
+		<link rel="stylesheet" href="../tyybeitshemesh/css/main.css">
 		<link rel="stylesheet" href="css/login.css">
 		<link rel="icon" href="image/logo.png">
 	</head>
 	<body dir="rtl">
 		<?php
-			include ($page_slug.'.php');
-		?>	
+			 require $page_slug.'.php';
+		  ?>	
 	</body>
 </html>

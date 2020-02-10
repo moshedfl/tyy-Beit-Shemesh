@@ -1,22 +1,20 @@
+// js for edit routes page
 
 //toggle button text view
-const displayStutands = document.querySelector("#display-stutands");
-
-displayStutands.addEventListener("click",(event)=>{
-
-if(displayStutands.innerHTML === "הצג תלמידים"){
-        displayStutands.innerHTML = "הסתר תלמידים";
+const displayStudents = document.querySelector("#display-students");
+displayStudents.addEventListener("click",(event)=>{
+if(displayStudents.innerHTML === "הצג תלמידים"){
+        displayStudents.innerHTML = "הסתר תלמידים";
     }else{
-        displayStutands.innerHTML = "הצג תלמידים";
+        displayStudents.innerHTML = "הצג תלמידים";
     }
-    
 })
 
+//Receives the updated stop number and puts it in the value of the adjacent input with the save button
 let stops = document.querySelectorAll(".stop-row");
-
 stops.forEach((stop)=>{
-    let stopNum = stop.childNodes[1];
-    let updateStop = stop.childNodes[3];
+    let stopNum = stop.childNodes[1]; // Contains the stop number
+    let updateStop = stop.childNodes[3];// the input
     let save = document.querySelector("#save");
 
     save.addEventListener("click",()=>{

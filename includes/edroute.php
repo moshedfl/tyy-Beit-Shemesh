@@ -1,32 +1,33 @@
 <script>
-	$(document).ready(function(){
-        $("#display-stutands").click(function(){
-            $("#stops-list").find(".stutands-list").slideToggle("fast");
+    // jquery
+    $(document).ready(function(){
+        // Shows student information for each stop at the click of the button 'הצג תלמידים'
+        $("#display-students").click(function(){
+            $("#stops-list").find(".students-list").slideToggle("fast");
         });
-        
-        
     });
 </script>
 
 <?php
-    if(isset($_POST[save])){
-      $stops = $_POST[stops];
-      $route_id = $_GET[routeid];
-      foreach($stops as $key => $val){
-        $stmt = $conn->prepare("UPDATE Stutands_routes SET stop_num=? WHERE route_id=? && stop_id=?");
+    // saves the updated station numbers at the click of the button 'שמור'
+if (isset($_POST['save'])) {
+    $stops = $_POST['stops'];
+    $route_id = $_GET['routeid'];
+    foreach ($stops as $key => $val) {
+        $stmt = $conn->prepare("UPDATE Students_routes SET stop_num=? WHERE route_id=? && stop_id=?");
         $stmt->bind_param('iii', $val, $route_id, $key);
         $stmt->execute();
-        header("Location:./home.php");
-        // echo $key.'=';
-        // echo $val.'<br>';
-      }
+        header("Location:./home.php"); // Returns to home page
+        
     }
+}
 ?>
+
 <form action="" method="post">
 
     <!-- Toolbar -->
     <div class="toolbar">
-        <button type="button" id="display-stutands" class="btn btn-secondary button" >הצג תלמידים</button>
+        <button type="button" id="display-students" class="btn btn-secondary button" >הצג תלמידים</button>
         <a href="home.php">
             <button type="button" class="btn btn-secondary button" >ביטול</button>
         </a>
@@ -36,30 +37,37 @@
     <main >
         <section>
     <?php
+        // Requests data for the selected route
         $route_id = $_GET['routeid'];
-        $stmt = $conn->prepare("SELECT Routes.*,users.username, users.user_tel, COUNT(DISTINCT Stutands_routes.stop_id) AS stops, COUNT(Stutands_routes.route_id) AS Stutands
-        FROM Routes 
-        JOIN users ON Routes.route_attendant = users.user_id
-        JOIN Stutands_routes ON Routes.route_id = Stutands_routes.route_id
-        WHERE Routes.route_id = ? ");
-        $stmt-> bind_param("i",$route_id);
+        $stmt = $conn->prepare(
+            "SELECT Routes.*,users.username, users.user_tel, COUNT(DISTINCT Students_routes.stop_id) AS stops, 
+            COUNT(Students_routes.route_id) AS Students
+            FROM Routes 
+            JOIN users ON Routes.route_attendant = users.user_id
+            JOIN Students_routes ON Routes.route_id = Students_routes.route_id
+            WHERE Routes.route_id = ? "
+        );
+        $stmt-> bind_param("i", $route_id);
         $stmt-> execute();
         $result = $stmt-> get_result();
-        while($row = $result ->fetch_assoc()){
+        while ($row = $result ->fetch_assoc()) {
             
+            // Put the route data into variables
             $route_id =  $row["route_id"];
             $route_direction =  $row["route_direction"];
             $route_Days =  $row["route_Days"];
             $db_time =  date_create($row["route_time"]);
-            $route_time = date_format($db_time,"H:i");
+            $route_time = date_format($db_time, "H:i");
             $route_vehicle =  $row["route_vehicle"];
             $route_attendant =  $row["username"];
             $attendant_tel =  $row["user_tel"];
             $sum_stops =  $row["stops"];
-            $sum_Stutands =  $row["Stutands"];
+            $sum_Students =  $row["Students"];
 
             ?>
+                <!--route content-->
                 <div class="route">
+                    <!--header for route main details-->
                     <div class="route-header active-header">
                         <div class="first-col">
                             <div class="line">
@@ -94,24 +102,26 @@
                             </div> 
                             <div class="line">
                                 <span class="h6">מס' תלמידים:</span> 
-                                <span class="t1"><?= $sum_Stutands ?></span>
+                                <span class="t1"><?= $sum_Students ?></span>
                             </div>
                         </div>
                         <div class="third-col">
                         
                         </div>
                     </div>
+                    <!--table for all route information-->
                     <div id="stops-list" class="stops-list">
-                        <!-- header for table in desktop -->
+
+                        <!-- header for stops table in desktop -->
                         <div class="table-header d-none d-md-block">
                             <div class="stop-row table-header-row">
                                 <span class="h6 table-header-col">#</span> 
                                 <span id="stop-name-col" class="t1 table-header-col">שם תחנה</span>
-                                <div class="stutands-list">
-                                    <div class="stutand-row">
+                                <div class="students-list">
+                                    <div class="student-row">
                                         <span class="h7 table-header-col">משפחה</span> 
                                         <span class="t2 table-header-col">שם פרטי</span>
-                                        <div class="stutand-info">
+                                        <div class="student-info">
                                             <div class="line address">
                                                 <span class="t3  table-header-col">כתובת</span>
                                             </div>
@@ -131,7 +141,7 @@
                         </div>
                 <?php
                         stops_list($route_id);
-                    ?>
+                ?>
                     </div>
                 </div>
             
@@ -139,67 +149,76 @@
             <?php
         }
 
-            function stops_list($route_id){
+        // get stops for current route
+        function Stops_list($route_id)
+        {
                 
-                global $conn;
-                                
-                $stmt = $conn->prepare("SELECT DISTINCT stops.stop_id, stop_name, stop_number, stop_num FROM stops 
-                INNER JOIN  Stutands_routes 
-                ON stops.stop_id = Stutands_routes.stop_id WHERE route_id = ?
-                ORDER BY stop_num ");
-                $stmt-> bind_param("i",$route_id);
+                global $conn; // import database connection to the function
+                
+                $stmt = $conn->prepare(
+                    "SELECT DISTINCT stops.stop_id, stop_name, stop_number, stop_num FROM stops 
+                    INNER JOIN  Students_routes 
+                    ON stops.stop_id = Students_routes.stop_id WHERE route_id = ?
+                    ORDER BY stop_num "
+                );
+                $stmt-> bind_param("i", $route_id);
                 $stmt-> execute();
                 $result = $stmt-> get_result();
                 
-                while($row = $result ->fetch_assoc()){
-                    $stop_id =  $row["stop_id"];
-                    $stop_name =  $row["stop_name"];
-                    $stop_number =  $row["stop_number"];
-                    $stop_num =  $row["stop_num"];
+            while ($row = $result ->fetch_assoc()) {
+                $stop_id =  $row["stop_id"];
+                $stop_name =  $row["stop_name"];
+                $stop_number =  $row["stop_number"];
+                $stop_num =  $row["stop_num"];
 
-
-                    ?>
+                ?>
+                    <!--table row-->
                     <div class="stop-row">
-                        <span class="stop-num transition-05 h6" contenteditable="true" onkeypress="numberOnly(event)"><?= $stop_num?></span> 
+                        <span class="stop-num transition-05 h6" contenteditable="true"
+                         onkeypress="numberOnly(event)"><?= $stop_num?></span> 
                         <input type="hidden" class="update-stop" name="stops[<?= $stop_id ?>]">
                         <span class="t1"><?= $stop_name ?></span>
-                        <div class="stutands-list">
+                        <div class="students-list">
                         <?php
-                            stutands_list($route_id,$stop_id);
+                            students_list($route_id, $stop_id);
                         ?>
                         </div>
                     </div>   
 
                     <?php
-                }
-
             }
+        }
 
-            function stutands_list($route_id,$stop_id){
+        // get Students data for current stop
+        function Students_list($route_id, $stop_id)
+        {
                 global $conn;
 
-                $stmt = $conn->prepare("SELECT Stutands.stutand_id, first_name, last_name, Stutands.address, tel, mobile_1, mobile_2 FROM Stutands 
-                INNER JOIN  Stutands_routes 
-                ON Stutands.stutand_id = Stutands_routes.stutand_id WHERE route_id = ? && stop_id = ?
-                ORDER BY last_name ");
-                $stmt-> bind_param("ii",$route_id, $stop_id);
+                $stmt = $conn->prepare(
+                    "SELECT Students.student_id, first_name, last_name, Students.address, tel, mobile_1, mobile_2 
+                    FROM Students 
+                    INNER JOIN  Students_routes 
+                    ON Students.student_id = Students_routes.student_id WHERE route_id = ? && stop_id = ?
+                    ORDER BY last_name "
+                );
+                $stmt-> bind_param("ii", $route_id, $stop_id);
                 $stmt-> execute();
                 $result = $stmt-> get_result();
                 
-                while($row = $result ->fetch_assoc()){
-                    $first_name =  $row["first_name"];
-                    $last_name =  $row["last_name"];
-                    $address =  $row["address"];
-                    $tel =  $row["tel"];
-                    $mobile_1 =  $row["mobile_1"];
-                    $mobile_2 =  $row["mobile_2"];
+            while ($row = $result ->fetch_assoc()) {
+                $first_name =  $row["first_name"];
+                $last_name =  $row["last_name"];
+                $address =  $row["address"];
+                $tel =  $row["tel"];
+                $mobile_1 =  $row["mobile_1"];
+                $mobile_2 =  $row["mobile_2"];
 
-
-                    ?>
-                     <div class="stutand-row">
+                ?>
+                    <!--student row-->
+                     <div class="student-row">
                         <span class="h7"><?= $last_name ?> </span> 
                         <span class="t2"><?= $first_name ?></span>
-                        <div class="stutand-info">
+                        <div class="student-info">
                             <div class="line address">
                                 <span class="h8 d-md-none">כתובת:</span>  
                                 <span class="t3 "><?= $address ?></span>
@@ -220,14 +239,10 @@
                     </div>     
 
                     <?php
-                }
-
             }
-
+        }
     
-
-        
-    ?>
+        ?>
 
         </section>
     </main>

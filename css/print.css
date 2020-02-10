@@ -4,10 +4,10 @@
      margin: 2cm;
 }
 
-/* section > *:not(.print-route){display: none;} */
 
 body{
      -webkit-print-color-adjust: exact;
+
 }
 
 main{
@@ -16,11 +16,16 @@ main{
 
 .route{
      break-after: page;
-direction: rtl;}
+     direction: rtl;
+
+}
+
+.big-route{
+     zoom:75%;
+}
 
 .route-header{
      background-color: rgb(209, 214, 216);
-
 }
 
 .fas{
@@ -29,6 +34,10 @@ direction: rtl;}
 
 .stops-list{
      display: block !important ;
+}
+
+.stop-row{
+     break-inside: avoid-page;
 }
 
 

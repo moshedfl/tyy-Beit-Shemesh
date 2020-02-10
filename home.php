@@ -1,11 +1,10 @@
+<!--home page screen-->
+
 <?php
-include 'includes/db_connection.php';
-include 'includes/functions.php';
-include 'includes/class.user.php';
-
-
+	require 'includes/db_connection.php';
+	require 'includes/functions.php';
+	require 'includes/class.user.php';
 ?>
-
 
 <!DOCTYPE html>
 <html lang="he">
@@ -14,7 +13,9 @@ include 'includes/class.user.php';
 		<!-- Required meta tags -->
         <meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<?php include 'includes/link.php';?>
+		<!--cdn links for external libraries-->
+		<?php require 'includes/link.php';?>
+		<!-- Required style sheets -->
 		<link rel="stylesheet" href="../tyybeitshemesh/css/login.css">
 		<link rel="stylesheet" href="../tyybeitshemesh/css/main.css">
 		<link rel="stylesheet" href="../tyybeitshemesh/css/routes.css">
@@ -24,16 +25,10 @@ include 'includes/class.user.php';
 	</head>
 	<body dir="rtl">
 
-
-
 		<?php
-			include 'includes/header.php';
-			include 'routes.php';
-	
-
-		?>
-
-
+			 require 'includes/header.php';
+			 require 'routes.php';
+		  ?>
 
 		<script src="js/main.js"></script>
 		<script src="js/routes.js"></script>
