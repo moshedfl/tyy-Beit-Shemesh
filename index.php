@@ -16,11 +16,13 @@ if (isset($_GET['page_slug'])) {
 <!DOCTYPE html>
 <html lang="he">
 	<head>
-		<title>ת"ת סקווירא בי"ש</title>
+		<title>ת"ת סקווירא בית שמש</title>
 		<!-- Required meta tags -->
         <meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!--cdn links for external libraries-->
+		<meta name="robots" content="index,follow" />
+		<meta name="description" 
+		content="תלמוד תורה תולדות יעקב יוסף דחסידי סקווירא בית שמש - מערכת לניהול מערך הסעות התלמידים"/>
 		<?php require 'includes/link.php';?>
 		<!-- Required style sheets -->
 		<link rel="stylesheet" href="../tyybeitshemesh/css/main.css">

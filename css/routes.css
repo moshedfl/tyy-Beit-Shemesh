@@ -168,13 +168,15 @@ section{
         padding: 0 0.3%;
     }
 
-    .route-header:hover .icons{
-        opacity: 1;
-        transition: all 1s ease-in;
-    }
-
-    .route-header:hover{
-        background-color: rgb(209, 214, 216);
+    @media (hover: hover) {
+        .route-header:hover .icons{
+            opacity: 1;
+            transition: all 1s ease-in;
+        }
+    
+        .route-header:hover{
+            background-color: rgb(209, 214, 216);
+        }
     }
 
     .first-col{

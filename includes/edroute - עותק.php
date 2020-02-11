@@ -173,7 +173,7 @@ if (isset($_POST['save'])) {
 
                 ?>
                     <!--table row-->
-                    <div class="stop-row" draggable="true">
+                    <div class="stop-row">
                         <span class="stop-num transition-05 h6" contenteditable="true"
                          onkeypress="numberOnly(event)"><?= $stop_num?></span> 
                         <input type="hidden" class="update-stop" name="stops[<?= $stop_id ?>]">

@@ -153,6 +153,7 @@ h1.message-header{
     
     #logout {
         flex-basis: 85px;
+        min-width: 71px;
     }
 
     #user-name{
