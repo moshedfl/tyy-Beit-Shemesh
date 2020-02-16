@@ -105,7 +105,7 @@ if (isset($_POST['username'])) {
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="image/logo.png" id="icon" alt="User Icon" />
+      <img src="image/logo.png" id="icon" alt="לוגו ת&quot;ת סקווירא בית שמש" />
       <h1>הרשמה</h1>
     </div>
 

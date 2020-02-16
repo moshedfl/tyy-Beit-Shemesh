@@ -93,20 +93,20 @@ section{
     margin-bottom: 10px;
 }
 
-.stop-row{
+.stop-row, .table-header-row{
     display: flex;
     align-items: center;
     padding: 4px 0;
     border: 1px solid #d1d3d7;
 }
 
-.stop-row > .h6{
+.stop-row > .h6, .table-header-row > .h6{
     padding: 0 7px 0 0;
     flex-basis: 8%;
     max-width: 30px;
 }
 
-.stop-row > .t1, .students-list{
+.stop-row > .t1, .students-list, .table-header-row > .t1{
     border-right: 1px solid #ddd;
     padding: 0 8px 0 4px;
     flex-basis: 46%;
@@ -217,7 +217,7 @@ section{
         font-size:13.5px; 
     }
 
-    .stop-row > .t1{
+    .stop-row > .t1 ,.table-header-row > .t1{
        flex-basis: 26%;
     }
     

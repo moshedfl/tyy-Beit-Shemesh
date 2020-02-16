@@ -8,17 +8,24 @@ if(displayStudents.innerHTML === "הצג תלמידים"){
     }else{
         displayStudents.innerHTML = "הצג תלמידים";
     }
-})
+});
 
 //Receives the updated stop number and puts it in the value of the adjacent input with the save button
-let stops = document.querySelectorAll(".stop-row");
-stops.forEach((stop)=>{
-    let stopNum = stop.childNodes[1]; // Contains the stop number
-    let updateStop = stop.childNodes[3];// the input
-    let save = document.querySelector("#save");
+function stopsOrderHandler(){
+    let stops = document.querySelectorAll(".stop-row");
+    let i = 1;
+    stops.forEach((stop)=>{
+        let stopNum = stop.childNodes[1]; // Contains the stop number
+        stopNum.innerHTML = i; // Contains the stop number
+        let updateStop = stop.childNodes[3];// the input
+        updateStop.value = i;
+        i++
+    })   
+}
 
-    save.addEventListener("click",()=>{
-        updateStop.value = stopNum.innerHTML;
-    })
-})
+dragula([document.querySelector('.stops')])
+    .on('drop', function (el) {
+        stopsOrderHandler();
+    });
+
 

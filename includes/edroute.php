@@ -113,8 +113,8 @@ if (isset($_POST['save'])) {
                     <div id="stops-list" class="stops-list">
 
                         <!-- header for stops table in desktop -->
-                        <div class="table-header d-none d-md-block">
-                            <div class="stop-row table-header-row">
+                        <div class="table-header d-none d-md-block" draggable="false">
+                            <div class="table-header-row" >
                                 <span class="h6 table-header-col">#</span> 
                                 <span id="stop-name-col" class="t1 table-header-col">שם תחנה</span>
                                 <div class="students-list">
@@ -139,9 +139,13 @@ if (isset($_POST['save'])) {
                                 </div>
                             </div>  
                         </div>
+                        
+                        <!--table body-->
+                        <div class="stops">
                 <?php
                         stops_list($route_id);
                 ?>
+                        </div>
                     </div>
                 </div>
             
@@ -173,9 +177,8 @@ if (isset($_POST['save'])) {
 
                 ?>
                     <!--table row-->
-                    <div class="stop-row" draggable="true">
-                        <span class="stop-num transition-05 h6" contenteditable="true"
-                         onkeypress="numberOnly(event)"><?= $stop_num?></span> 
+                    <div class="stop-row" >
+                        <span class="stop-num h6"><?= $stop_num ?></span> 
                         <input type="hidden" class="update-stop" name="stops[<?= $stop_id ?>]">
                         <span class="t1"><?= $stop_name ?></span>
                         <div class="students-list">
@@ -247,6 +250,7 @@ if (isset($_POST['save'])) {
         </section>
     </main>
 </form>
+<script src="plugins/dragula/dragula.js"></script>
 
 <script src="js/edroute.js"></script>
 

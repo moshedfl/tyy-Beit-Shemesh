@@ -34,7 +34,7 @@ function login($user)
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="image/logo.png" id="icon" alt="School logo" />
+      <img src="image/logo.png" id="icon" alt="לוגו ת&quot;ת סקווירא בית שמש" />
       <h1>כניסה</h1>
     </div>
 
