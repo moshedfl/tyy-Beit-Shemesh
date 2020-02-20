@@ -29,9 +29,9 @@ if (isset($_POST['save'])) {
     <div class="toolbar">
         <button type="button" id="display-students" class="btn btn-secondary button" >הצג תלמידים</button>
         <a href="home.php">
-            <button type="button" class="btn btn-secondary button" >ביטול</button>
+            <button type="button" class="btn btn-secondary button spinner-on" >ביטול</button>
         </a>
-        <button type="submit" name="save" id="save" class="btn btn-secondary button" >שמור</button>
+        <button type="submit" name="save" id="save" class="btn btn-secondary button spinner-on" >שמור</button>
     </div>
 
     <main >
@@ -113,7 +113,7 @@ if (isset($_POST['save'])) {
                     <div id="stops-list" class="stops-list">
 
                         <!-- header for stops table in desktop -->
-                        <div class="table-header d-none d-md-block" draggable="false">
+                        <div class="table-header d-none d-md-block">
                             <div class="table-header-row" >
                                 <span class="h6 table-header-col">#</span> 
                                 <span id="stop-name-col" class="t1 table-header-col">שם תחנה</span>
@@ -178,7 +178,11 @@ if (isset($_POST['save'])) {
                 ?>
                     <!--table row-->
                     <div class="stop-row" >
-                        <span class="stop-num h6"><?= $stop_num ?></span> 
+                    <div class="stop-icons">
+                        <i class="fas fa-arrows-alt handle" title="גרור למקום הרצוי"></i>
+                    </div>    
+
+                        <span class="stop-num h6"></span> 
                         <input type="hidden" class="update-stop" name="stops[<?= $stop_id ?>]">
                         <span class="t1"><?= $stop_name ?></span>
                         <div class="students-list">
@@ -238,7 +242,10 @@ if (isset($_POST['save'])) {
                                 <span class="h8 d-md-none"><?= $mobile_2 ? "נייד נוסף:" : "" ?></span> 
                                 <span class="t3"><?= $mobile_2 ? $mobile_2 : "" ?></span>
                             </div>
-                        </div>    
+                        </div>
+                        <div class="student-icons t3">
+                            <i class="fas fa-arrows-alt handle1" title="גרור למקום הרצוי" ></i>
+                        </div>                    
                     </div>     
 
                     <?php

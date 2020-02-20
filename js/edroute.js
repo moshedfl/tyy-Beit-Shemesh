@@ -12,20 +12,29 @@ if(displayStudents.innerHTML === "הצג תלמידים"){
 
 //Receives the updated stop number and puts it in the value of the adjacent input with the save button
 function stopsOrderHandler(){
-    let stops = document.querySelectorAll(".stop-row");
-    let i = 1;
-    stops.forEach((stop)=>{
-        let stopNum = stop.childNodes[1]; // Contains the stop number
-        stopNum.innerHTML = i; // Contains the stop number
-        let updateStop = stop.childNodes[3];// the input
-        updateStop.value = i;
-        i++
+    let stopNum = Array.from(document.querySelectorAll(".stop-num"));
+    stopNum.forEach((stop)=>{
+        let num = stopNum.indexOf(stop) + 1;
+        stop.innerHTML = num; // Contains the stop number
+        stop.nextElementSibling.value = num;
     })   
 }
 
-dragula([document.querySelector('.stops')])
-    .on('drop', function (el) {
+stopsOrderHandler();
+
+dragula([document.querySelector('.stops')], {
+    moves: function (el, container, handle) {
+        return handle.classList.contains('handle');
+      }
+})
+    .on('drop', function () {
         stopsOrderHandler();
     });
 
+dragula(Array.from(document.querySelectorAll('.students-list')),  {
+    moves: function (el, container, handle) {
+      return handle.classList.contains('handle1');
+    }
+  });
 
+console.log(typeof (UndoManager));

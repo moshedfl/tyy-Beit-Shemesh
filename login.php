@@ -3,29 +3,14 @@
 <?php
 
 $err = "";
-  
-  // Checks connected user
-if (isset($_COOKIE['old_user'])) {
-    $user = new UserLogin($_COOKIE['old_user']);
-    $user->ProveConnectedUser();
-    login($user);
-  
-    // Checks not connected user
-} elseif (isset($_POST['username'])) {
+
+// validate login form
+if (isset($_POST['username'])) {
     $user = new UserLogin(trim($_POST['username']));
     $user->ProveNotConnectedUser($_POST['password'], $_POST['Stay_connected']);
-    login($user);
+    login();
     $err = $user->err;
 }
-
-function login($user)
-{
-    if ($user->UserOk) { // if user identity proved
-        $user->SetUserSession(); // create session with all user data
-        header("Location:home.php"); //login to home page
-    }
-}
-
   
 ?>
 

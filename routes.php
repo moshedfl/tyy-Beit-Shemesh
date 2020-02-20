@@ -100,7 +100,7 @@
                         if ($_SESSION['tyy_User']['user_permissions'] > 8) {
                             ?>
                             <a class="edit-route" href="edit.php?routeid=<?=$route_id?>">
-                                <i class="fas fa-edit" title="ערוך"></i>
+                                <i class="fas fa-edit spinner-on" title="ערוך"></i>
                             </a>
                             <?php
                         }

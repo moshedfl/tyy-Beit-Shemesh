@@ -1,3 +1,6 @@
+section{
+    max-width: 1150px;
+}
 
 .toolbar button{
     margin: 5px 3px 5px 0;
@@ -12,15 +15,42 @@
     display: block;
 }
 
+.stop-icons{
+    height: 21px;
+    border-left: 1px solid #ddd;
+    padding: 0 8px 0 4px;
+    flex-basis: 10%;
+}
+
+.stop-row > .t1 ,.table-header-row > .t1{
+    flex-basis: 22%;
+}
+
 #stop-name-col{
     text-align: right;
 }
 
-.stop-num{
-    border-bottom: 2px solid #f6f6f6;
-}
-
 .students-list{
     display: none;
+    min-height: 20px;
+    flex-basis: 77%;
+}
+
+.student-icons{
+    flex-basis: 18%;
+    border-right: 1px solid #ddd;
+    padding: 0 8px 0 4px;
+    text-align: left;
+}
+
+.gu-mirror{
+    background-color: #D3DCE3 !important;
+    border:1px solid #aaa !important;
+    border-radius: 2px;
+    box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.fa-arrows-alt{
+   cursor: move;
 }
 

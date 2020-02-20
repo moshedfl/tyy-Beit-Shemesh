@@ -1,9 +1,14 @@
 <!--default screen-->
 
 <?php
-	require 'includes/functions.php';
-	require 'includes/db_connection.php';
-	require 'includes/class.user.php';
+include 'includes/functions.php';
+
+function login() 
+{
+    if ($_SESSION['tyy_User'])header("Location:home.php"); //if user ok login to home page
+}
+	
+login();
 
 if (isset($_GET['page_slug'])) {
     $page_slug = $_GET['page_slug'];
@@ -38,7 +43,7 @@ if (isset($_GET['page_slug'])) {
 		<meta name="identifier-URL" content="http://www.phreizel.prog-sites.co.il/tyybeitshemesh/">
 		<?php require 'includes/link.php';?>
 		<!-- Required style sheets -->
-		<link rel="stylesheet" href="../tyybeitshemesh/css/main.css">
+		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/login.css">
 		<link rel="icon" href="image/logo.png">
 	</head>

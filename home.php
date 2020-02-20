@@ -1,9 +1,7 @@
 <!--home page screen-->
 
 <?php
-	require 'includes/db_connection.php';
 	require 'includes/functions.php';
-	require 'includes/class.user.php';
 ?>
 
 <!DOCTYPE html>
@@ -29,10 +27,10 @@
 		<meta name="identifier-URL" content="http://www.phreizel.prog-sites.co.il/tyybeitshemesh/">
 		<?php require 'includes/link.php';?>
 		<!-- Required style sheets -->
-		<link rel="stylesheet" href="../tyybeitshemesh/css/login.css">
-		<link rel="stylesheet" href="../tyybeitshemesh/css/main.css">
-		<link rel="stylesheet" href="../tyybeitshemesh/css/routes.css">
-		<link rel="stylesheet" media="print" href="../tyybeitshemesh/css/print.css">
+		<link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/routes.css">
+		<link rel="stylesheet" media="print" href="css/print.css">
 		<link rel="icon" href="image/logo.png">
 		<script src="js/jquery.js"></script>
 	</head>
@@ -42,7 +40,7 @@
 			 require 'includes/header.php';
 			 require 'routes.php';
 		  ?>
-
+      
 		<script src="js/main.js"></script>
 		<script src="js/routes.js"></script>
 

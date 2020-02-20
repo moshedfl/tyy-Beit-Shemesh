@@ -44,7 +44,6 @@ class User
 class UserLogin extends User
 {
 
-      public $UserOk = true;
       public $err; 
 
     /**
@@ -55,8 +54,9 @@ class UserLogin extends User
     public function proveConnectedUser()
     {
         if (!$this->UserName) { // if not exists in the system
-            $this->UserOk = false; // blocked login
-            setcookie('old_user', '', time() -3600, "/tyybeitshemesh"); //deletes not relevant cookie
+            setcookie('old_user', '', time() -3600); //deletes not relevant cookie
+        } else {
+            $this->setUserSession();
         }
     }
 
@@ -72,13 +72,15 @@ class UserLogin extends User
     {
         // Verifying password from the form against what exists in the system under this username
         if (!password_verify($password, $this->Password)) { //if Unmatched
-            $this->UserOk = false;
             $this->err = "<span class='err'>One of the data is incorrect</span>"; //display error
         
             // if checkbox 'stay connected' checked
-        } elseif ($stay_connected) {
-            // create cookie with user name for straight entrance next time
-            setcookie('old_user', $this->UserName, time() + (86400 * 30 * 12), $_SERVER['SERVER_NAME']."/tyybeitshemesh"); 
+        } else {
+            if ($stay_connected) {
+                // create cookie with user name for straight entrance next time
+                setcookie('old_user', $this->UserName, time() + (86400 * 30 * 12));
+            }
+            $this->setUserSession();
         }
     }
 

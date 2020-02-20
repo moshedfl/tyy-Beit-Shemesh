@@ -40,4 +40,8 @@
 	<nav id="nav">
 
 	</nav>
+
+	<div id="spinner-wrapper">
+		<img src="image/Loading.gif" id="spinner" alt="spinner" style="width:100%"/>
+	</div>
 </div>

@@ -2,9 +2,7 @@
 
 <?php
 
-require 'includes/db_connection.php';
 require 'includes/functions.php';
-require 'includes/class.user.php';
 
 //Checks whether the user has edit permission
 if($_SESSION['tyy_User']['user_permissions'] < 9) user_logout();
